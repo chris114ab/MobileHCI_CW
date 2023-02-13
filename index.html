@@ -2,14 +2,34 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+    <script src="aframe-extras.controls.min.js"></script>
   </head>
   <body>
+    <a-assets>
+        <a-asset-item id="model-scene" src="https://cdn.glitch.global/0a42499f-aa49-4ec6-a09b-eff46488ed46/City.gltf?v=1674504882209"></a-asset-item>
+        <a-asset-item id="city" src="/assets/scene.gltf"></a-asset-item>
+    </a-assets>
+
     <a-scene>
-      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
       <a-sky color="#ECECEC"></a-sky>
+      <a-entity gltf-model="#city" scale="0.01 0.01 0.01" position="0 0 0" rotation="0 0 0"></a-entity>
+      <a-entity id="person" movement-controls="controls: keyboard, touch;">
+        <a-entity hud camera look-controls position="0 1.6 0">
+          <a-entity cursor="fuse: true; fuseTimeout: 800" raycaster="objects: .selectable"
+                    material="color: white; shader: flat; opacity: 0.8;" position="0 0 -0.1"
+                    geometry="primitive: ring; radiusInner: 0.002; radiusOuter: 0.004"
+                    animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 500; from: 0.2 0.2 0.2; to: 1 1 1"
+                    animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 800; from: 1 1 1; to: 0.2 0.2 0.2"
+                    animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 100; to: 1 1 1">
+          </a-entity>
+          
+          <!-- HUD position label -->
+          <a-entity id="hud-position" text="value: 0.0, 0.0, 0.0; align: center; anchor: center; baseline: center; color: white; opacity: 0.8; wrap-count: 20;" position="0 -0.02 -0.2" scale="0.1 0.1 0.1"></a-entity>
+        </a-entity>
+      </a-entity>
+      <a-sky color="#a8e0f7"></a-sky>
+      <a-plane rotation="-90 0 0" position="0 -1.6 0" width="200" height="200" color="#6EBAA7"></a-plane>
+      
     </a-scene>
   </body>
 </html>
